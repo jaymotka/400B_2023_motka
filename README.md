@@ -1,2 +1,3 @@
-# 400B_2023_motka
-Repository for ASTR 400B: Theoretical Astrophysics class.
+# ASTR 400B: Theoretical Astrophysics: Galactic, Extra-galactic Astronomy and Cosmology
+
+This repository contains all homeworks and assignments for ASTR 400B class.
