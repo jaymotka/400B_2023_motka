@@ -8,7 +8,7 @@ class CenterOfMass:
 # Class to define COM position and velocity properties of a given galaxy 
 # and simulation snapshot
 
-    def __init__(self, data):
+    def __init__(self, data, ptype):
         ''' Class to calculate the 6-D phase-space position of a galaxy's center of mass using
         a specified particle type. 
             
@@ -18,18 +18,21 @@ class CenterOfMass:
                 snapshot file
             ptype : `int; 1, 2, or 3`
                 particle type to use for COM calculations
-        '''
-     
+        '''  
+
+        #create an array to store indexes of particles of desired Ptype                                
+        self.index = np.where(data[:,0] == ptype)
+
         # store the mass, positions, velocities of only the particles of the given type
         # the following only gives the example of storing the mass
-        self.m = data[:,0]
+        self.m = data[:,1][self.index]
         # write your own code to complete this for positions and velocities
-        self.x = data[:,1]
-        self.y = data[:,2]
-        self.z = data[:,3]
-        self.vx = data[:,4]
-        self.vy = data[:,5]
-        self.vz = data[:,6]
+        self.x = data[:,2][self.index]         # Storing x-coordinate
+        self.y = data[:,3][self.index]         # Storing y-coordinate
+        self.z = data[:,4][self.index]         # Storing z-coordinate
+        self.vx = data[:,5][self.index]       # Storing x-velocity
+        self.vy = data[:,6][self.index]       # Storing y-velocity
+        self.vz = data[:,7][self.index]       # Storing z-velocity
 
     def COMdefine(self,a,b,c,m):
         ''' Method to compute the COM of a generic vector quantity by direct weighted averaging.
@@ -199,7 +202,7 @@ class CenterOfMass:
         
         # the max distance from the center that we will use to determine 
         #the center of mass velocity                   
-        rv_max = 1e9*u.kpc
+        rv_max = 15.0*u.kpc
 
         # determine the position of all particles relative to the center of mass position (x_COM, y_COM, z_COM)
         # write your own code below
